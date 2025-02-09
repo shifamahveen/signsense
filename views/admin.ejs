@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - User List</title>
+  <link rel="icon" href="https://talkao.com/wp-content/uploads/2022/09/augmented-reality-translate-icon.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white">
+  <nav class="bg-gray-600 p-4 shadow-md">
+    <div class="max-w-screen-xl px-16 mx-auto flex justify-between items-center">
+      <h1 class="text-white text-2xl "><a href="/" class="text-white">SignSense</a></h1>
+      <div class="flex space-x-4">
+        <a href="/profile" class="text-white text-sm  bg-gray-400 duration-300 ease-in-out hover:bg-orange-500 px-4 py-2 rounded">Profile</a>
+        <a href="/config/" class="text-white  text-sm bg-gray-400 duration-300 ease-in-out hover:bg-orange-500 px-4 py-2 rounded">Config</a>
+        <% if (typeof user !== 'undefined' && user && user.role !== 'user') { %>  
+            <a href="/admin" class="text-white text-sm bg-gray-400 duration-300 ease-in-out hover:bg-orange-500 px-4 py-2 rounded">Admin</a>
+          <% } %>          
+        <a href="/logout" class="text-white text-sm  bg-gray-400 duration-300 ease-in-out hover:bg-orange-500 px-4 py-2 rounded">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Admin Section: User List -->
+ <section class="max-w-screen-xl px-20 py-10 mx-auto">
+  <h1 class="text-3xl font-semibold mb-8 text-white">Admin - User List</h1>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <% users.forEach(user => { %>
+      <div class="bg-gray-800 rounded-lg shadow-md p-6 flex justify-between items-center">
+        <div>
+          <h2 class="text-2xl font-semibold text-white mb-4"><%= user.name %></h2>
+          <ul class="">
+            <li><span class="text-gray-400 font-semibold">Email:</span> <%= user.email %></li>
+            <li><span class="text-gray-400 font-semibold">Phone:</span> <%= user.phone %></li>
+            <li><span class="text-gray-400 font-semibold">Role:</span> <%= user.role %></li>
+            <li><span class="text-gray-400 font-semibold">Gender:</span> <%= user.gender %></li>
+            <li><span class="text-gray-400 font-semibold">Location:</span> <%= user.location %></li>
+          </ul>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+</section>
+  
+</body>
+</html>

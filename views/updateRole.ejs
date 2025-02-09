@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Update Role</title>
+</head>
+<body>
+    <nav class="bg-gray-600 p-4 shadow-md">
+        <div class="max-w-screen-xl px-16 mx-auto flex justify-between items-center">
+          <h1 class="text-white text-2xl "><a href="/" class="text-white">SignSense</a></h1>
+          <div class="flex space-x-4">
+            <a href="/profile" class="text-white text-sm  bg-gray-400 duration-300 ease-in-out hover:bg-orange-500 px-4 py-2 rounded">Profile</a>
+            <a href="/config/" class="text-white  text-sm bg-gray-400 duration-300 ease-in-out hover:bg-orange-500 px-4 py-2 rounded">Config</a>
+            <% if (typeof user !== 'undefined' && user && user.role !== 'user') { %>  
+                <a href="/admin" class="text-white text-sm bg-gray-400 duration-300 ease-in-out hover:bg-orange-500 px-4 py-2 rounded">Admin</a>
+              <% } %>          
+            <a href="/logout" class="text-white text-sm  bg-gray-400 duration-300 ease-in-out hover:bg-orange-500 px-4 py-2 rounded">Logout</a>
+          </div>
+        </div>
+      </nav>
+    
+      <div class="flex items-center justify-center h-[80vh] bg-gray-100">
+        <div class="bg-white p-6 rounded-lg shadow-md w-96">
+            <h2 class="text-xl font-semibold mb-4">Update Your Role</h2>
+            <p class="mb-2">Current Role: <strong><%= user.role %></strong></p>
+            <form action="/config" method="POST" class="space-y-4">
+                <label class="block">
+                    <span class="text-gray-700">Select Role</span>
+                    <select name="role" class="block w-full mt-1 p-2 border rounded-lg">
+                        <option value="user">User</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </label>
+                <button type="submit" class="bg-teal-500 text-white px-4 py-2 rounded-lg w-full hover:bg-teal-600">Update</button>
+            </form>
+        </div>
+    </div>
+    
+    <footer class="bg-gray-600 p-4 shadow-md text-center text-white fixed bottom-0 w-full mt-28">
+        &#169; SignSense
+    </footer>
+</body>
+</html>

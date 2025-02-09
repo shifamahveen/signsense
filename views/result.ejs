@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detection Result</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body >
+    <nav class="bg-gray-600 p-4 shadow-md">
+        <div class="max-w-screen-xl px-16 mx-auto flex justify-between items-center">
+            <h1 class="text-white text-2xl "><a href="/" class="text-white">SignSense</a></h1>
+            <div class="flex space-x-4">
+            <a href="/profile" class="text-white text-sm  bg-gray-400 duration-300 ease-in-out hover:bg-orange-500 px-4 py-2 rounded">Profile</a>
+            <a href="/config/" class="text-white  text-sm bg-gray-400 duration-300 ease-in-out hover:bg-orange-500 px-4 py-2 rounded">Config</a>
+            <% if (typeof user !== 'undefined' && user && user.role !== 'user') { %>  
+                <a href="/admin" class="text-white text-sm bg-gray-400 duration-300 ease-in-out hover:bg-orange-500 px-4 py-2 rounded">Admin</a>
+                <% } %>          
+            <a href="/logout" class="text-white text-sm  bg-gray-400 duration-300 ease-in-out hover:bg-orange-500 px-4 py-2 rounded">Logout</a>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="bg-gray-100 flex flex-col items-center justify-center min-h-screen p-6 mb-10">
+        <h1 class="text-3xl font-semibold text-center text-gray-800 mb-6">Hand Detection Result</h1>
+    
+        <div class="flex justify-between items-center gap-6 bg-white p-6 rounded-lg shadow-lg w-full max-w-4xl">
+            <% if (imageUrl) { %>
+                <div class="text-center">
+                    <h2 class="text-lg font-semibold text-gray-700">Uploaded Image:</h2>
+                    <img src="<%= imageUrl %>" alt="Uploaded Image" class="mt-4 rounded-lg shadow-md max-w-xs">
+                </div>
+            <% } %>
+    
+            <!-- Circular Progress Bar -->
+            <div class="relative w-48 h-48">
+                <svg class="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
+                    <circle class="text-gray-300" stroke-width="4" stroke="currentColor" fill="none" r="16" cx="18" cy="18" />
+                    <circle class="text-blue-600" stroke-width="4" stroke="currentColor" fill="none" r="16" cx="18" cy="18"
+                        stroke-dasharray="100" stroke-dashoffset="<%= 100 - usagePercentage %>" stroke-linecap="round" />
+                </svg>
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <span class="text-xl font-semibold text-blue-600"><%= usagePercentage.toFixed(0) %>%</span>
+                </div>
+            </div>
+        </div>
+    
+        <!-- Error Message -->
+        <% if (typeof error !== 'undefined' && error) { %>
+            <h2 class="text-red-600 font-semibold mt-4"><%= error %></h2>
+        <% } %>
+    
+        <!-- Hand Detection Result -->
+        <% if (result && result.data && typeof result.data.hand_num !== 'undefined') { %>
+            <div class="bg-white p-6 rounded-lg shadow-lg mt-6 text-center w-full max-w-lg">
+                <h1 class="text-2xl font-semibold text-green-600">✅ Hand Detected</h1>
+                <h2 class="text-lg font-semibold text-gray-700 mt-2">Number of Hands: <%= result.data.hand_num %></h2>
+    
+                <div class="mt-4 text-left">
+                    <h3 class="text-lg font-semibold text-gray-800">Hand Details:</h3>
+                    <ul class="list-disc ml-6 text-gray-700">
+                        <li><strong>Top:</strong> <%= result.data.hand_info[0].location.top %></li>
+                        <li><strong>Left:</strong> <%= result.data.hand_info[0].location.left %></li>
+                        <li><strong>Width:</strong> <%= result.data.hand_info[0].location.width %></li>
+                        <li><strong>Height:</strong> <%= result.data.hand_info[0].location.height %></li>
+                        <li><strong>Confidence Score:</strong> <%= result.data.hand_info[0].location.score %></li>
+                    </ul>
+                </div>
+            </div>
+        <% } else { %>
+            <h1 class="text-2xl font-semibold text-red-600 mt-6">❌ No Hand Detected</h1>
+        <% } %>    
+        
+        <!-- Back Button -->
+        <a href="/" class="mt-6 inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg transition">
+            Go Back
+        </a>
+    </div>    
+
+    <footer class="bg-gray-600 p-4 shadow-md text-center text-white fixed bottom-0 w-full mt-28">
+        &#169; SignSense
+    </footer>
+</body>
+</html>

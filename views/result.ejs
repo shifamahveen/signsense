@@ -3,82 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detection Result</title>
+    <title>Disease Detection Result</title>
+    <link rel="shortcut icon" href="../uploads/leaf-svgrepo-com.png">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body >
-    <nav class="bg-gray-600 p-4 shadow-md">
-        <div class="max-w-screen-xl px-16 mx-auto flex justify-between items-center">
-            <h1 class="text-white text-2xl "><a href="/" class="text-white">SignSense</a></h1>
+<body class="bg-gradient-to-br from-gray-900 to-purple-900 w-full">
+    <!-- Navbar -->
+    <nav class="p-4 shadow-md border-b border-purple-400">
+        <div class="max-w-screen-xl px-16 mx-auto flex justify-between items-center text-white">
+            <h1 class="text-2xl font-semibold ">
+                <a href="/" class="text-white flex space-x-2 items-center">
+                <svg class="w-12" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M450.72 418.17c-42.29-21.86-144.5-220-171.65-198.22s-40.59 114.28 0.29 171.31 132 97 153.52 129.58 18.45 57.07 13.36 63.2S262.49 462 217.66 485.53s-28.41 84.69 17.56 132.54S427 651.39 455.57 672.76s32.72 55 20.49 55-145.88-32.38-192.77-24.15-68.25 39.89 0.12 73.42 180.26 8.87 199.28 28.21 6.8 28.54-7.47 29.58-110.14-4.91-143.78 0.24 6.21 56.07 23.57 69.3 80.59 19.24 98.94 16.15 36.67-26.58 51-20.48 3.14 45.88 8.25 53 46.92 9.1 53-0.09-10.26-37.71-0.09-51 32.65 11.16 66.28-1.13 109-70.55 111-104.2-132.52 27.76-167.19 26.8c-24.48-4-34.71-21.36-19.43-30.56s228.33-55.45 244.57-96.27 4-34.68-21.47-34.63S605.6 724.45 590.26 700 791 610 813.3 555.9s29.37-119.36-0.22-127.47-147.62 137.92-194.54 130.86-1.06-21.41 19.29-48 132.36-120.51 133.32-154.16 10.08-67.32-27.65-71.33-129.27 135.84-149.69 123.63 52.89-78.61 64-143.89S632.09 133 611.7 137.14s-19.37 4.11-19.34 22.47 10.33 79.52-1.85 114.21-13.14 60.18-23.35 54.08-10.27-43.83-4.2-73.41 23.3-92.83 13.07-112.19S545.27 48.53 467.8 68s-72.25 89.86-65 136.75 27.67 83.57 45.09 128.41 21.71 94.77 2.83 85.01z" fill="#5AB286"></path></g></svg>
+                <span>AgroGuard</span>
+                </a></h1>
             <div class="flex space-x-4">
-            <a href="/profile" class="text-white text-sm  bg-gray-400 duration-300 ease-in-out hover:bg-orange-500 px-4 py-2 rounded">Profile</a>
-            <a href="/config/" class="text-white  text-sm bg-gray-400 duration-300 ease-in-out hover:bg-orange-500 px-4 py-2 rounded">Config</a>
-            <% if (typeof user !== 'undefined' && user && user.role !== 'user') { %>  
-                <a href="/admin" class="text-white text-sm bg-gray-400 duration-300 ease-in-out hover:bg-orange-500 px-4 py-2 rounded">Admin</a>
-                <% } %>          
-            <a href="/logout" class="text-white text-sm  bg-gray-400 duration-300 ease-in-out hover:bg-orange-500 px-4 py-2 rounded">Logout</a>
+                <a href="/profile" class="text-sm bg-purple-700 hover:bg-purple-500 px-4 py-2 rounded">Profile</a>
+                <a href="/config/" class="text-sm bg-purple-700 hover:bg-purple-500 px-4 py-2 rounded">Config</a>
+                <% if (user && user.role !== 'user') { %>  
+                <a href="/admin" class="text-sm bg-purple-700 hover:bg-purple-500 px-4 py-2 rounded">Admin</a>
+                <% } %>
+                <a href="/logout" class="text-sm bg-purple-700 hover:bg-purple-500 px-4 py-2 rounded">Logout</a>
             </div>
         </div>
     </nav>
+
+    <div class="bg-white p-8 rounded-xl shadow-xl w-full max-w-screen-xl px-16 mx-auto my-10 mb-20">
+        <h1 class="text-3xl font-semibold text-gray-800 text-center mb-6">Disease Detection Result</h1>
     
-    <div class="bg-gray-100 flex flex-col items-center justify-center min-h-screen p-6 mb-10">
-        <h1 class="text-3xl font-semibold text-center text-gray-800 mb-6">Hand Detection Result</h1>
-    
-        <div class="flex justify-between items-center gap-6 bg-white p-6 rounded-lg shadow-lg w-full max-w-4xl">
-            <% if (imageUrl) { %>
-                <div class="text-center">
-                    <h2 class="text-lg font-semibold text-gray-700">Uploaded Image:</h2>
-                    <img src="<%= imageUrl %>" alt="Uploaded Image" class="mt-4 rounded-lg shadow-md max-w-xs">
-                </div>
-            <% } %>
-    
-            <!-- Circular Progress Bar -->
+        
+        <!-- API Usage Progress -->
+        <div class="flex justify-center items-center my-6">
             <div class="relative w-48 h-48">
-                <svg class="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
-                    <circle class="text-gray-300" stroke-width="4" stroke="currentColor" fill="none" r="16" cx="18" cy="18" />
-                    <circle class="text-blue-600" stroke-width="4" stroke="currentColor" fill="none" r="16" cx="18" cy="18"
-                        stroke-dasharray="100" stroke-dashoffset="<%= 100 - usagePercentage %>" stroke-linecap="round" />
+                <svg class="w-full h-full" viewBox="0 0 100 100">
+                    <circle class="text-gray-200" stroke-width="10" stroke="currentColor" fill="transparent" r="40" cx="50" cy="50"/>
+                    <circle class="text-blue-500 transition-all duration-500" stroke-width="10" stroke-linecap="round"
+                        stroke="currentColor" fill="transparent" r="40" cx="50" cy="50"
+                        stroke-dasharray="100"
+                        stroke-dashoffset="<%= 100 - (apiCreditsRemaining / 100) * 100 %>"/>
                 </svg>
-                <div class="absolute inset-0 flex items-center justify-center">
-                    <span class="text-xl font-semibold text-blue-600"><%= usagePercentage.toFixed(0) %>%</span>
+                <span class="absolute inset-0 flex items-center justify-center text-2xl font-semibold text-gray-800">
+                    <%= 100 - apiCreditsRemaining %>% Used
+                </span>
+            </div>
+            
+            <div class="mt-4 text-center text-xl">
+                <span class="font-semibold">Credits Left:</span> <%= apiCreditsRemaining %>
+            </div>
+            
+        </div>
+
+        <div class="flex flex-col lg:flex-row justify-between space-y-8 lg:space-y-0 lg:space-x-8 items-start">
+            <!-- Left Section (Image & Progress) -->
+            <div class="w-full lg:w-1/3">
+                <div class="text-center">
+                    <img src="<%= uploadedImageUrl %>" alt="Uploaded Image" class="w-full h-auto rounded-lg shadow-md">
                 </div>
+            </div>
+    
+            <!-- Right Section (Table) -->
+            <div class="w-full lg:w-2/3 overflow-x-auto">
+                <table class="w-full border border-gray-300 rounded-lg shadow-md">
+                    <thead class="bg-gray-100 text-gray-700">
+                        <tr>
+                            <th class="border border-gray-300 p-3 text-left">SNO</th>
+                            <th class="border border-gray-300 p-3 text-left">Disease Name</th>
+                            <th class="border border-gray-300 p-3 text-left">Scientific Name</th>
+                            <th class="border border-gray-300 p-3 text-left">Probability</th>
+                            <th class="border border-gray-300 p-3 text-center">Reference</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        <% diseaseInfo.result.disease.suggestions.forEach((disease, index) => { %>
+                            <tr class="hover:bg-gray-50">
+                                <td class="border border-gray-300 p-3"><%= index+1 %></td>
+                                <td class="border border-gray-300 p-3 font-medium text-gray-800"><%= disease.name %></td>
+                                <td class="border border-gray-300 p-3 text-gray-600"><%= disease.scientific_name %></td>
+                                <td class="border border-gray-300 p-3 font-semibold text-blue-600"><%= (disease.probability * 100).toFixed(2) %>%</td>
+                                <td class="border border-gray-300 p-3 text-center">
+                                    <img src="<%= disease.similar_images[0].url_small %>" alt="Disease Image" class="w-16 h-16 rounded-lg shadow-sm">
+                                </td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
             </div>
         </div>
+    </div>
     
-        <!-- Error Message -->
-        <% if (typeof error !== 'undefined' && error) { %>
-            <h2 class="text-red-600 font-semibold mt-4"><%= error %></h2>
-        <% } %>
     
-        <!-- Hand Detection Result -->
-        <% if (result && result.data && typeof result.data.hand_num !== 'undefined') { %>
-            <div class="bg-white p-6 rounded-lg shadow-lg mt-6 text-center w-full max-w-lg">
-                <h1 class="text-2xl font-semibold text-green-600">✅ Hand Detected</h1>
-                <h2 class="text-lg font-semibold text-gray-700 mt-2">Number of Hands: <%= result.data.hand_num %></h2>
-    
-                <div class="mt-4 text-left">
-                    <h3 class="text-lg font-semibold text-gray-800">Hand Details:</h3>
-                    <ul class="list-disc ml-6 text-gray-700">
-                        <li><strong>Top:</strong> <%= result.data.hand_info[0].location.top %></li>
-                        <li><strong>Left:</strong> <%= result.data.hand_info[0].location.left %></li>
-                        <li><strong>Width:</strong> <%= result.data.hand_info[0].location.width %></li>
-                        <li><strong>Height:</strong> <%= result.data.hand_info[0].location.height %></li>
-                        <li><strong>Confidence Score:</strong> <%= result.data.hand_info[0].location.score %></li>
-                    </ul>
-                </div>
-            </div>
-        <% } else { %>
-            <h1 class="text-2xl font-semibold text-red-600 mt-6">❌ No Hand Detected</h1>
-        <% } %>    
-        
-        <!-- Back Button -->
-        <a href="/" class="mt-6 inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg transition">
-            Go Back
-        </a>
-    </div>    
-
-    <footer class="bg-gray-600 p-4 shadow-md text-center text-white fixed bottom-0 w-full mt-28">
-        &#169; SignSense
+    <footer class="bg-gray-900 p-4 shadow-md text-center text-white fixed bottom-0 w-full mt-28 border-t border-purple-400 mt-20">
+        &#169; AgroGuard
     </footer>
+    
 </body>
 </html>

@@ -4,11 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Register</title>
-  <link rel="icon" href="https://talkao.com/wp-content/uploads/2022/09/augmented-reality-translate-icon.png" />
+  <link rel="shortcut icon" href="../uploads/leaf-svgrepo-com.png">
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-700 flex items-center justify-center h-[140vh]">
-  <div class="w-full max-w-lg my-20 p-6 bg-gray-800 rounded-lg shadow-lg">
+<body class="bg-gradient-to-br from-gray-900 to-purple-900 w-full text-white flex justify-center items-center py-10">
+
+  <div class="bg-gray-900 shadow-lg rounded-lg p-8 w-full max-w-lg my-20">
     <h1 class="text-2xl font-semibold mb-6 text-center text-white">Register</h1>
     <form action="/register" method="POST" class="space-y-4">
       <div>
@@ -40,10 +41,10 @@
         <label for="location" class="block text-sm font-medium text-gray-300">Location:</label>
         <input type="text" id="location" name="location" required class="mt-1 block w-full px-3 py-2 border border-gray-600 rounded-md shadow-sm bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm">
       </div>
-      <button type="submit" class="w-full py-2 px-4 bg-orange-500 text-white font-semibold rounded-md shadow-sm hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500">Register</button>
+      <button type="submit" class="w-full bg-pink-700 text-white py-3 rounded-md hover:bg-pink-600 transition-colors">Register</button>
     </form>
     <p class="mt-4 text-center text-sm text-gray-400">
-      <a href="/login" class="text-orange-400 hover:text-orange-300">Already have an account? Login here.</a>
+      <a href="/login" class="text-pink-400 hover:text-pink-300">Already have an account? Login here.</a>
     </p>
   </div>
 </body>

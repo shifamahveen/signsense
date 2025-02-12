@@ -4,7 +4,7 @@ const db = mysql.createConnection({
   host: 'localhost', 
   user: 'root',
   password: 'root',
-  database: 'siteforge'
+  database: 'translator'
 });
 
 db.connect((err) => {

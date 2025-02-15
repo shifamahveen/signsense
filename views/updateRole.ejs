@@ -7,26 +7,26 @@
     <title>Update Role</title>
     <link rel="shortcut icon" href="../uploads/leaf-svgrepo-com.png">
 </head>
-<body class="bg-gradient-to-br from-gray-900 to-purple-900 w-full">
+<body class="bg-gray-100 ">
     <!-- Navbar -->
-   <nav class="p-4 shadow-md border-b border-purple-400">
-        <div class="max-w-screen-xl px-16 mx-auto flex justify-between items-center text-white">
-            <h1 class="text-2xl font-semibold ">
-                <a href="/" class="text-white flex space-x-2 items-center">
-                <svg class="w-12" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M450.72 418.17c-42.29-21.86-144.5-220-171.65-198.22s-40.59 114.28 0.29 171.31 132 97 153.52 129.58 18.45 57.07 13.36 63.2S262.49 462 217.66 485.53s-28.41 84.69 17.56 132.54S427 651.39 455.57 672.76s32.72 55 20.49 55-145.88-32.38-192.77-24.15-68.25 39.89 0.12 73.42 180.26 8.87 199.28 28.21 6.8 28.54-7.47 29.58-110.14-4.91-143.78 0.24 6.21 56.07 23.57 69.3 80.59 19.24 98.94 16.15 36.67-26.58 51-20.48 3.14 45.88 8.25 53 46.92 9.1 53-0.09-10.26-37.71-0.09-51 32.65 11.16 66.28-1.13 109-70.55 111-104.2-132.52 27.76-167.19 26.8c-24.48-4-34.71-21.36-19.43-30.56s228.33-55.45 244.57-96.27 4-34.68-21.47-34.63S605.6 724.45 590.26 700 791 610 813.3 555.9s29.37-119.36-0.22-127.47-147.62 137.92-194.54 130.86-1.06-21.41 19.29-48 132.36-120.51 133.32-154.16 10.08-67.32-27.65-71.33-129.27 135.84-149.69 123.63 52.89-78.61 64-143.89S632.09 133 611.7 137.14s-19.37 4.11-19.34 22.47 10.33 79.52-1.85 114.21-13.14 60.18-23.35 54.08-10.27-43.83-4.2-73.41 23.3-92.83 13.07-112.19S545.27 48.53 467.8 68s-72.25 89.86-65 136.75 27.67 83.57 45.09 128.41 21.71 94.77 2.83 85.01z" fill="#5AB286"></path></g></svg>
-                <span>AgroGuard</span>
-                </a></h1>
-            <div class="flex space-x-4">
-                <a href="/profile" class="text-sm bg-purple-700 hover:bg-purple-500 px-4 py-2 rounded">Profile</a>
-                <a href="/config/" class="text-sm bg-purple-700 hover:bg-purple-500 px-4 py-2 rounded">Config</a>
-                <% if (user && user.role !== 'user') { %>  
-                <a href="/admin" class="text-sm bg-purple-700 hover:bg-purple-500 px-4 py-2 rounded">Admin</a>
-                <% } %>
-                <a href="/logout" class="text-sm bg-purple-700 hover:bg-purple-500 px-4 py-2 rounded">Logout</a>
-            </div>
-        </div>
-    </nav>
-    
+  <nav class="p-4 shadow-md border-b border-gray-400 bg-gray-900">
+      <div class="max-w-screen-xl px-16 mx-auto flex justify-between items-center text-white">
+          <h1 class="text-2xl font-semibold ">
+              <a href="/" class="text-white flex space-x-2 items-center">
+                  <svg class="w-10" viewBox="0 0 24 24" id="Artwork" xmlns="http://www.w3.org/2000/svg" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M11.26,6.86l-3.39-2a.75.75,0,1,1,.78-1.28l3.36,2Z" style="fill:#aecbfa;fill-rule:evenodd"></path><path d="M11.52,10.31,4.69,6.36a.75.75,0,0,1,.75-1.3l6.08,3.52Z" style="fill:#aecbfa;fill-rule:evenodd"></path><path d="M19.6,5.33a.76.76,0,0,0-1-.27L12.75,8.4V6.85l3.39-2a.74.74,0,0,0,.25-1,.75.75,0,0,0-1-.25L11.65,5.78a.79.79,0,0,0-.39.68V21a.75.75,0,1,0,1.49,0V10.14l6.57-3.78A.76.76,0,0,0,19.6,5.33Z" style="fill:#669df6;fill-rule:evenodd"></path><circle cx="12.01" cy="3.09" r="0.84" style="fill:#669df6"></circle><path d="M9.48,10.82a.73.73,0,0,1,.38.64v4.08a.74.74,0,0,1-.38.65.79.79,0,0,1-.37.1.86.86,0,0,1-.38-.1L4.41,13.7a.75.75,0,1,1,.75-1.3l3.2,1.84V11.9l-1.45-.83a.75.75,0,0,1-.27-1,.74.74,0,0,1,1-.27Z" style="fill:#aecbfa"></path><circle cx="5.26" cy="9.26" r="0.84" style="fill:#aecbfa"></circle><path d="M16.34,9.77a.74.74,0,0,1,1,.27.75.75,0,0,1-.27,1l-1.45.83v2.34l3.2-1.84a.75.75,0,1,1,.75,1.3l-4.32,2.49a.86.86,0,0,1-.38.1.79.79,0,0,1-.37-.1.74.74,0,0,1-.38-.65V11.46a.73.73,0,0,1,.38-.64Z" style="fill:#4285f4"></path><circle cx="18.74" cy="9.26" r="0.84" style="fill:#4285f4"></circle></g></svg>                <span>SignSense</span>
+              </a></h1>
+          <div class="flex space-x-4">
+              <a href="/profile" class="text-sm bg-gray-700 hover:bg-gray-500 px-4 py-2 rounded">Profile</a>
+              <a href="/config/" class="text-sm bg-gray-700 hover:bg-gray-500 px-4 py-2 rounded">Config</a>
+              <% if (user && user.role !== 'user') { %>  
+              <a href="/admin" class="text-sm bg-gray-700 hover:bg-gray-500 px-4 py-2 rounded">Admin</a>
+              <% } %>
+              <a href="/logout" class="text-sm bg-gray-700 hover:bg-gray-500 px-4 py-2 rounded">Logout</a>
+          </div>
+      </div>
+  </nav>
+
+  <section class="max-w-screen-xl px-16 pb-8 mx-auto">
       <div class="flex items-center justify-center h-[80vh] bg-gray-100">
         <div class="bg-white p-6 rounded-lg shadow-md w-96">
             <h2 class="text-xl font-semibold mb-4">Update Your Role</h2>
@@ -44,9 +44,10 @@
         </div>
     </div>
     
-    <footer class="bg-gray-900 p-4 shadow-md text-center text-white fixed bottom-0 w-full mt-28 border-t border-purple-400 mt-20">
-        &#169; AgroGuard
-    </footer>
+    </section>
+    <footer class="bg-gray-900 p-4 shadow-md text-center text-white fixed bottom-0 w-full mt-28 border-t border-gray-400 mt-20">
+        &#169; SignSense
+        </footer>
     
 </body>
 </html>

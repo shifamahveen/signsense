@@ -3,7 +3,6 @@ const { ensureAuthenticated } = require('../middleware/authMiddleware');
 const authController = require('../controllers/authController');
 const profileController = require('../controllers/profileController'); 
 const adminController = require('../controllers/adminController'); 
-const imageController = require('../controllers/imageController'); 
 const router = express.Router();
 
 router.get('/register', (req, res) => {

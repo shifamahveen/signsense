@@ -1,7 +1,7 @@
 const express = require("express");
 const session = require('express-session');
 const path = require("path");
-const imageRoutes = require("./routes/imageRoutes");
+const gestureRoutes = require("./routes/gestureRoutes");
 const authRoutes = require("./routes/authRoutes");
 
 const app = express();
@@ -19,7 +19,7 @@ app.use(session({
   }));  
 
 // Routes
-app.use("/", imageRoutes);
+app.use("/", gestureRoutes);
 app.use("/", authRoutes);
 
 const PORT = process.env.PORT || 3000;

@@ -25,22 +25,120 @@
         </div>
     </nav>
 
-    <section class="max-w-screen-xl px-16 py-8 mx-auto mt-20">
+    <section class="max-w-screen-xl px-16 py-8 mx-auto my-20">
         <div class="bg-white p-6 rounded-lg shadow-lg">
             <h1 class="text-2xl font-bold mb-4">Gesture Recognition</h1>
-            <form action="/" method="POST" enctype="multipart/form-data">
-            <div class="mb-4">
-                <label class="block text-sm font-medium text-gray-700">Upload Image</label>
-                <input type="file" name="image_file" accept="image/*" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm p-4">
-            </div>
-            <button type="submit" class="w-full bg-pink-500 text-white py-2 rounded">Submit</button>
+        
+            <form id="uploadForm" action="/result" method="POST" enctype="multipart/form-data">
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700">Upload Image</label>
+                    <input type="file" id="imageFile" name="image_file" accept="image/*" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm p-4">
+                </div>
+        
+                <div class="text-center my-4">
+                    <button type="button" id="openCamera" class="bg-blue-500 text-white px-4 py-2 rounded">Open Camera</button>
+                </div>
+
+                <div id="previewContainer" class="hidden mt-4">
+                    <img id="capturedImagePreview" class="w-1/2 block mx-auto rounded-md shadow-md" alt="Captured Image">
+                </div>
+        
+                <div id="cameraContainer" class="hidden">
+                    <video id="video" class="w-1/2 block mx-auto rounded-md shadow-md"></video>
+                    <button type="button" id="capture" class="mt-2 w-1/2 block mx-auto bg-green-500 text-white py-2 rounded">Capture Image</button>
+                </div>
+        
+                <canvas id="canvas" class="hidden"></canvas>
+                <input type="hidden" id="capturedImage" name="captured_image">
+        
+                <button type="submit" class="w-full bg-pink-500 text-white py-2 rounded mt-4 focus:ring-pink-500">Submit</button>
             </form>
-        </div>
+        </div>        
     </section>
 
-    <footer class="bg-gray-900 p-4 shadow-md text-center text-white fixed bottom-0 w-full mt-28 border-t border-gray-400 mt-20">
+    <footer class="bg-gray-900 p-4 shadow-md text-center text-white fixed bottom-0 w-full mt-28 border-t border-gray-400 mt-40">
     &#169; SignSense
     </footer>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const video = document.getElementById('video');
+            const captureButton = document.getElementById('capture');
+            const openCameraButton = document.getElementById('openCamera');
+            const previewContainer = document.getElementById('previewContainer');
+            const capturedImagePreview = document.getElementById('capturedImagePreview');
+            const imageInput = document.getElementById('imageFile');
+            const uploadForm = document.getElementById('uploadForm');
+            const cameraContainer = document.getElementById('cameraContainer');
+
+            let capturedBlob = null;
+            let mediaStream = null;
+
+            // Open Camera
+            openCameraButton.addEventListener('click', async () => {
+                try {
+                    mediaStream = await navigator.mediaDevices.getUserMedia({ video: true });
+                    video.srcObject = mediaStream;
+                    video.play();
+                    cameraContainer.classList.remove('hidden');
+                } catch (error) {
+                    console.error("Error accessing camera:", error);
+                    alert("Could not access camera");
+                }
+            });
+
+            // Capture Image
+            captureButton.addEventListener('click', () => {
+                const canvas = document.createElement('canvas');
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+                canvas.toBlob((blob) => {
+                    capturedBlob = blob;
+                    const imageUrl = URL.createObjectURL(blob);
+                    capturedImagePreview.src = imageUrl;
+                    previewContainer.classList.remove('hidden');
+
+                    // Stop camera
+                    if (mediaStream) {
+                        mediaStream.getTracks().forEach(track => track.stop());
+                    }
+                    cameraContainer.classList.add('hidden');
+                }, 'image/jpeg');
+            });
+
+            // Submit Form with Captured Image
+            uploadForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const formData = new FormData(uploadForm);
+
+                // If an image was captured, append it to FormData
+                if (capturedBlob) {
+                    formData.append('image_file', new File([capturedBlob], 'captured_image.jpg', { type: 'image/jpeg' }));
+                }
+
+                try {
+                    const response = await fetch(uploadForm.action, {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    if (!response.ok) {
+                        throw new Error('Failed to submit image');
+                    }
+
+                    const resultPage = await response.text();
+                    document.body.innerHTML = resultPage; // Render result page without redirect issues
+
+                } catch (error) {
+                    console.error("Error submitting image:", error);
+                    alert("Error submitting the image.");
+                }
+            });
+        });
+
+    </script>
 </body>
 </html>
